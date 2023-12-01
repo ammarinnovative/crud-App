@@ -127,6 +127,7 @@ export default function Home() {
   };
   const change = () => {
     setBool(false);
+    setLoadings(false);
     setData({
       name: "",
       email: "",
