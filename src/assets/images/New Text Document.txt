@@ -1,0 +1,1101 @@
+<?php
+use App\Helpers\ReuseableCode;
+use App\Helpers\SalesHelper;
+use App\Helpers\CommonHelper;
+$accType = Auth::user()->acc_type;
+if($accType == 'client'){
+    $m = Session::get('run_company');
+}else{
+    $m = Auth::user()->company_id;
+}
+?>
+@extends('layouts.default')
+
+@section('content')
+    @include('select2');
+    <div class="well_N">
+        <div class="dp_sdw  dpjoba">     
+            <div class="panel">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span class="subHeadingLabelClass">Create Job Card</span>
+                        </div>
+                    </div>
+                    <div class="lineHeight">&nbsp;</div>
+                    <div class="row">
+                        <?php echo Form::open(array('route' => 'job-card.store','id'=>'addCategoryForm'));?>
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <!-- <label for="">SO NO:</label>                                                                    
+                                        <select class="form-control select2 requiredField" onchange="loadSaleOrderDetail(this.value)" name="so_id" id="so_no">
+                                            <option>Select SO</option>
+                                            @foreach ($sale_orders as $sale_order)
+                                                <option value="{{ $sale_order->id }}">{{ $sale_order->so_no }}</option>
+                                            @endforeach
+                                        </select> -->
+
+                                        <div class="fisls">
+                                            <div class="row">
+
+                                                <div class="fls">
+                                                    
+                                                    <div class="col-md-2">
+                                                        <div class="headso">
+                                                            <h3 class="myhead">SO Details</h3>
+                                                        </div>
+                                                    </div>
+        
+                                                    <div class="col-md-12">
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+        
+                                                                <label for="">SO No:</label>
+                                                                <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                    <option></option>
+                                                                    @foreach ($cylinders as $cylinder)
+                                                                        <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                    @endforeach
+                                                                </select> 
+                                                            </div>
+        
+                                                            <div class="col-md-3">
+                                                                <label for="">Buyer Nam</label>
+                                                                <input type="text" placeholder=""class="form-control" id="sleeves_tube" name="sleeves_tube">
+                                                            </div>
+        
+                                                            <div class="col-md-3">
+        
+                                                                <label for="">PO No:</label>
+                                                                <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                    <option></option>
+                                                                    @foreach ($cylinders as $cylinder)
+                                                                        <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                    @endforeach
+                                                                </select>  
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <label for="">PO No:</label>
+                                                                <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                    <option></option>
+                                                                    @foreach ($cylinders as $cylinder)
+                                                                        <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                    @endforeach
+                                                                </select>  
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+
+                                        <div class="fisls">
+                                            <div class="row">
+
+                                                <div class="fls">
+                                                    <div class="col-md-2">
+                                                        <div class="headso">
+                                                            <h3 class="myhead">Production Details</h3>
+                                                        </div>
+                                                    </div>
+        
+                                                    <div class="col-md-12">
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+        
+                                                                <label for="">SO No:</label>
+                                                                <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                    <option></option>
+                                                                    @foreach ($cylinders as $cylinder)
+                                                                        <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                    @endforeach
+                                                                </select> 
+                                                            </div>
+        
+                                                            <div class="col-md-3">
+                                                                <label for="">Buyer Nam</label>
+                                                                <input type="text" placeholder=""class="form-control" id="sleeves_tube" name="sleeves_tube">
+                                                            </div>
+        
+                                                            <div class="col-md-3">
+        
+                                                                <label for="">PO No:</label>
+                                                                <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                    <option></option>
+                                                                    @foreach ($cylinders as $cylinder)
+                                                                        <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                    @endforeach
+                                                                </select>  
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <label for="">PO No:</label>
+                                                                <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                    <option></option>
+                                                                    @foreach ($cylinders as $cylinder)
+                                                                        <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                    @endforeach
+                                                                </select>  
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+        
+                                                            <div class="col-md-4">
+                                                                <label for="">Buyer Nam</label>
+                                                                <input type="text" placeholder=""class="form-control" id="sleeves_tube" name="sleeves_tube">
+                                                            </div>
+        
+                                                            <div class="col-md-4">
+        
+                                                                <label for="">PO No:</label>
+                                                                <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                    <option></option>
+                                                                    @foreach ($cylinders as $cylinder)
+                                                                        <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                    @endforeach
+                                                                </select>  
+                                                            </div>
+        
+                                                            <div class="col-md-4"></div>
+                                                            
+        
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+
+                                        <div class="fisls">
+                                            <div class="row">
+
+                                                <div class="fls">
+                                                    <div class="col-md-2">
+                                                        <div class="headso">
+                                                            <h3 class="myhead">Printing Details</h3>
+                                                        </div>
+                                                    </div>
+        
+                                                    <div class="col-md-12">
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+        
+                                                                <label for="">SO No:</label>
+                                                                <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                    <option></option>
+                                                                    @foreach ($cylinders as $cylinder)
+                                                                        <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                    @endforeach
+                                                                </select> 
+                                                            </div>
+        
+                                                            <div class="col-md-3">
+                                                                <label for="">Buyer Nam</label>
+                                                                <input type="text" placeholder=""class="form-control" id="sleeves_tube" name="sleeves_tube">
+                                                            </div>
+        
+                                                            <div class="col-md-3">
+        
+                                                                <label for="">PO No:</label>
+                                                                <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                    <option></option>
+                                                                    @foreach ($cylinders as $cylinder)
+                                                                        <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                    @endforeach
+                                                                </select>  
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <label for="">PO No:</label>
+                                                                <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                    <option></option>
+                                                                    @foreach ($cylinders as $cylinder)
+                                                                        <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                    @endforeach
+                                                                </select>  
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+        
+                                                            <div class="col-md-3">
+        
+                                                            <label for="">SO No:</label>
+                                                            <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                <option></option>
+                                                                @foreach ($cylinders as $cylinder)
+                                                                    <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                @endforeach
+                                                            </select> 
+                                                            </div>
+        
+                                                            <div class="col-md-3">
+                                                                <label for="">Buyer Nam</label>
+                                                                <input type="text" placeholder=""class="form-control" id="sleeves_tube" name="sleeves_tube">
+                                                            </div>
+        
+                                                            <div class="col-md-3">
+        
+                                                                <label for="">PO No:</label>
+                                                                <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                    <option></option>
+                                                                    @foreach ($cylinders as $cylinder)
+                                                                        <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                    @endforeach
+                                                                </select>  
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <label for="">PO No:</label>
+                                                                <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                    <option></option>
+                                                                    @foreach ($cylinders as $cylinder)
+                                                                        <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                    @endforeach
+                                                                </select>  
+                                                            </div>
+                                                                
+        
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <label for="">Buyer Nam</label>
+                                                                <input type="text" placeholder=""class="form-control" id="sleeves_tube" name="sleeves_tube">
+                                                            </div>
+        
+                                                            <div class="col-md-3">
+        
+                                                                <label for="">PO No:</label>
+                                                                <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                    <option></option>
+                                                                    @foreach ($cylinders as $cylinder)
+                                                                        <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                    @endforeach
+                                                                </select>  
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <label for="">PO No:</label>
+                                                                <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                    <option></option>
+                                                                    @foreach ($cylinders as $cylinder)
+                                                                        <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                    @endforeach
+                                                                </select>  
+                                                            </div>
+        
+                                                        </div>
+                                                    </div>
+
+                                                 </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="fisls">
+                                            <div class="row">
+
+                                                <div class="fls">
+                                                    <div class="col-md-2">
+                                                        <div class="headso">
+                                                            <h3 class="myhead">Order Details</h3>
+                                                        </div>
+                                                    </div>
+        
+                                                    <div class="col-md-12">
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+        
+                                                                <label for="">SO No:</label>
+                                                                <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                    <option></option>
+                                                                    @foreach ($cylinders as $cylinder)
+                                                                        <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                    @endforeach
+                                                                </select> 
+                                                            </div>
+        
+                                                            <div class="col-md-3">
+                                                                
+                                                            </div>
+        
+                                                            <div class="col-md-3">
+        
+                                                                
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    
+                                                    </div>
+
+                                                 </div>
+                                            </div>
+                                        </div>
+
+                                        
+
+
+                                <!-- <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label for="">DISPATCH QTY:</label>
+                                        <input type="text" placeholder="DISPATCH QTY:" name="finish_good_qty" class="form-control requiredField" id="finish_good_qty">
+                                    </div>                     
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label for="">DEL DATE :</label>
+                                        <input type="date" placeholder="DEL DATE :" name="delivery_date" class="form-control requiredField" id="delivery_date" value="{{date('Y-m-d')}}">
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label for="">PLANNED WASTE:</label>
+                                        <input type="number" step="any" name="planned_wastage_percent" placeholder="Example 10%" class="form-control" id="planned_wastage_percent">
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label for="">CYLINDER NO</label>
+                                        <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                            <option>Cylinder No</option>
+                                            @foreach ($cylinders as $cylinder)
+                                                <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label for="">PRINT ARIA:</label>
+                                        <input readonly type="text" placeholder="PRINT ARIA:" class="form-control requiredField" name="print_area" id="print_area">
+                                    </div> 
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label for="">CLY.QTY</label>
+                                        <input readonly type="text" placeholder="CLY.QTY" class="form-control requiredField" name="cylinder_qty" id="cylinder_qty">
+                                    </div>   
+                                    
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label for="">UPS ACROSS:</label>
+                                        <input readonly type="text" placeholder="UPS AROUND:" class="form-control requiredField" name="ups_across" id="up_across">
+                                    </div>                     
+                            
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label for="">SLITTING WIDTH</label>
+                                        <input readonly type="text" placeholder="SLITTING WIDTH" class="form-control requiredField" name="unit_size_height" id="cylinder_width">
+                                    </div>                     
+                                    
+                                </div> 
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label for="">CUT OFF LENGTH</label>
+                                        <input readonly type="text" placeholder="CUT OFF LENGTH" class="form-control requiredField" name="unit_size_length" id="cylinder_length">
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label for="">UPS Around:</label>
+                                        <input readonly type="text" placeholder="UPS ACROSS:" class="form-control requiredField" name="ups_around" id="up_around">
+                                    </div>                     
+                            
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label for="">SLEEVES /TUBE</label>
+                                        <input type="text" placeholder="SLEEVES /TUBE"class="form-control" id="sleeves_tube" name="sleeves_tube">
+                                    </div>   
+                                    
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label for="">REEL SIZE</label>
+                                        <input type="text" placeholder="REEL SIZE"class="form-control" id="reel_size" name="reel_size">
+                                    </div>                     
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label for="">PRINT METHOD</label>
+                                        <select class="form-control requiredField" name="printing_method" id="printing_method">
+                                            <option value="rotograver">Rotograver</option>
+                                        </select>
+                                    </div>  
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label for="">Packing Mode</label>
+                                        <select class="form-control requiredField" name="packing_mode" id="packing_mode">
+                                            <option value="reverse">Reverse</option>
+                                            <option value="forward">Forward</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label for="">Recipe</label>
+                                        <select disabled class="form-control" onchange="getRecipeDetail(this.value)" name="recipe_id" id="recipe_id">
+                                            <option value=""></option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label for="">Machine No</label>
+                                        <input type="text" placeholder="Machine No"class="form-control" id="machine_no" name="machine_no">
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label for="">Operator Name</label>
+                                        <input type="text" placeholder="Operator Name"class="form-control" id="operator_name" name="operator_name">
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label for="">Prod. Order Name</label>
+                                        <input type="text" placeholder="Prod. Order Name"class="form-control" id="prod_order_name" name="prod_order_name">
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label for="">Order Status</label>
+                                        <input type="text" placeholder="Order Status"class="form-control" id="order_status" name="order_status">
+                                    </div> 
+                                </div> -->
+                            </div>
+                        </div>
+                        <!-- <div class="table-responsive py-5"> 
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th colspan="3" class="text-center">Raw matterial input</th>
+                                        <th class="text-center">
+                                            <input type="button" class="btn btn-sm btn-primary" onclick="AddMoreDetails()" value="Add More Rows" />
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-center">Item</th>
+                                        <th class="text-center">Stage<span class="rflabelsteric"><strong>*</strong></span></th>
+                                        <th class="text-center">Uom<span class="rflabelsteric"><strong>*</strong></span></th>
+                                        <th class="text-center">Density<span class="rflabelsteric"><strong>*</strong></span></th>
+                                        <th class="text-center">Micron<span class="rflabelsteric"><strong>*</strong></span></th>
+                                        <th class="text-center">GSM<span class="rflabelsteric"><strong>*</strong></span></th>
+                                        <th class="text-center">Actual Qty<span class="rflabelsteric"><strong>*</strong></span></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="AppnedHtml">
+                                    <tr id="RemoveRows1" class="AutoNo">
+                                        <td class="AutoCounter">
+                                            <select class="form-control select2" name="raw_item_id[]" id="item_id1" onchange="selectSubItem(this.value,1)">
+                                                <option>Select Item</option>
+                                                @foreach (CommonHelper::get_all_subitem(2,1) as $key => $value)
+                                                    <option value="{{ $value->id }}" data-uom="{{ optional($value->uomData)->uom_name }}" >{{ $value->sub_ic }}</option>
+                                                @endforeach
+                                            </select>
+                                        </td>
+                                        <td class="AutoCounter">
+                                            <select class="form-control select2" name="stage_id[]" id="stage_id1">
+                                                <option>Select Item</option>
+                                                @foreach ($stages as $stage)
+                                                    <option value="{{ $stage->id }}" data-uom="{{ $stage->name }}" >{{ $stage->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </td>
+                                        <td><input readonly type="text" class="form-control" name="uom_id[]" id="uom_id1" ></td>
+                                        <td><input type="text" class="form-control" name="density[]" id="density1" placeholder="density" value=""></td>
+                                        <td>
+                                            <input type="hidden" name="density" id="density1" value="">
+                                            <input type="text" class="form-control" onkeyup="gsmCalculate(1)" name="micron[]" id="micron1" placeholder="micron" min="1" value="">
+                                        </td>
+                                        <td><input type="text" class="form-control gsm" name="gsm[]" readonly id="gsm1" placeholder="gms" min="1" value=""></td>
+                                        <td><input type="text" class="form-control requiredField ActualQty" name="actual_qty[]" id="actual_qty1" placeholder="ACTUAL QTY" min="1" value=""></td>
+                                        <td class="text-center">---</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div> -->
+
+
+                                        <div class="fisls">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="headso">
+                                                        <h3 class="myhead">Raw Material Input</h3>
+                                                    </div>
+                                                
+                                                        <div class="bsj">
+                                                            <ul>
+                                                                <li>
+                                                                    <label for="">SO No:</label>
+                                                                    <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                        <option></option>
+                                                                        @foreach ($cylinders as $cylinder)
+                                                                            <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                        @endforeach
+                                                                    </select> 
+                                                                </li>
+                                                                <li>
+                                                                    <label for="">SO No:</label>
+                                                                    <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                        <option></option>
+                                                                        @foreach ($cylinders as $cylinder)
+                                                                            <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                        @endforeach
+                                                                    </select> 
+                                                                </li>
+                                                                <li>
+                                                                    <label for="">SO No:</label>
+                                                                    <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                        <option></option>
+                                                                        @foreach ($cylinders as $cylinder)
+                                                                            <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                        @endforeach
+                                                                    </select> 
+                                                                </li>
+                                                                <li>
+                                                                    <label for="">SO No:</label>
+                                                                    <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                        <option></option>
+                                                                        @foreach ($cylinders as $cylinder)
+                                                                            <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                        @endforeach
+                                                                    </select> 
+                                                                </li>
+                                                                <li>
+                                                                    <label for="">SO No:</label>
+                                                                    <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                        <option></option>
+                                                                        @foreach ($cylinders as $cylinder)
+                                                                            <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                        @endforeach
+                                                                    </select> 
+                                                                </li>
+                                                                <li>
+                                                                    <label for="">SO No:</label>
+                                                                    <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                        <option></option>
+                                                                        @foreach ($cylinders as $cylinder)
+                                                                            <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                        @endforeach
+                                                                    </select> 
+                                                                </li>
+                                                                <li>
+                                                                    <label for="">SO No:</label>
+                                                                    <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                        <option></option>
+                                                                        @foreach ($cylinders as $cylinder)
+                                                                            <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                        @endforeach
+                                                                    </select> 
+                                                                </li>
+                                                                                                                                <li>
+                                                                    <label for="">SO No:</label>
+                                                                    <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                        <option></option>
+                                                                        @foreach ($cylinders as $cylinder)
+                                                                            <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                        @endforeach
+                                                                    </select> 
+                                                                </li>
+                                                                <li>
+                                                                <i class="fa-solid fa-trash"></i>
+
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="bsj">
+                                                            <ul>
+                                                                <li>
+                                                                    <label for="">SO No:</label>
+                                                                    <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                        <option></option>
+                                                                        @foreach ($cylinders as $cylinder)
+                                                                            <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                        @endforeach
+                                                                    </select> 
+                                                                </li>
+                                                                <li>
+                                                                    <label for="">SO No:</label>
+                                                                    <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                        <option></option>
+                                                                        @foreach ($cylinders as $cylinder)
+                                                                            <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                        @endforeach
+                                                                    </select> 
+                                                                </li>
+                                                                <li>
+                                                                    <label for="">SO No:</label>
+                                                                    <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                        <option></option>
+                                                                        @foreach ($cylinders as $cylinder)
+                                                                            <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                        @endforeach
+                                                                    </select> 
+                                                                </li>
+                                                                <li>
+                                                                    <label for="">SO No:</label>
+                                                                    <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                        <option></option>
+                                                                        @foreach ($cylinders as $cylinder)
+                                                                            <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                        @endforeach
+                                                                    </select> 
+                                                                </li>
+                                                                <li>
+                                                                    <label for="">SO No:</label>
+                                                                    <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                        <option></option>
+                                                                        @foreach ($cylinders as $cylinder)
+                                                                            <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                        @endforeach
+                                                                    </select> 
+                                                                </li>
+                                                                <li>
+                                                                    <label for="">SO No:</label>
+                                                                    <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                        <option></option>
+                                                                        @foreach ($cylinders as $cylinder)
+                                                                            <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                        @endforeach
+                                                                    </select> 
+                                                                </li>
+                                                                <li>
+                                                                    <label for="">SO No:</label>
+                                                                    <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                        <option></option>
+                                                                        @foreach ($cylinders as $cylinder)
+                                                                            <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                        @endforeach
+                                                                    </select> 
+                                                                </li>
+                                                                                                                                <li>
+                                                                    <label for="">SO No:</label>
+                                                                    <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                        <option></option>
+                                                                        @foreach ($cylinders as $cylinder)
+                                                                            <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                        @endforeach
+                                                                    </select> 
+                                                                </li>
+                                                                <li>
+                                                                <i class="fa-solid fa-trash"></i>
+
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="bsj">
+                                                            <ul>
+                                                                <li>
+                                                                    <label for="">SO No:</label>
+                                                                    <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                        <option></option>
+                                                                        @foreach ($cylinders as $cylinder)
+                                                                            <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                        @endforeach
+                                                                    </select> 
+                                                                </li>
+                                                                <li>
+                                                                    <label for="">SO No:</label>
+                                                                    <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                        <option></option>
+                                                                        @foreach ($cylinders as $cylinder)
+                                                                            <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                        @endforeach
+                                                                    </select> 
+                                                                </li>
+                                                                <li>
+                                                                    <label for="">SO No:</label>
+                                                                    <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                        <option></option>
+                                                                        @foreach ($cylinders as $cylinder)
+                                                                            <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                        @endforeach
+                                                                    </select> 
+                                                                </li>
+                                                                <li>
+                                                                    <label for="">SO No:</label>
+                                                                    <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                        <option></option>
+                                                                        @foreach ($cylinders as $cylinder)
+                                                                            <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                        @endforeach
+                                                                    </select> 
+                                                                </li>
+                                                                <li>
+                                                                    <label for="">SO No:</label>
+                                                                    <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                        <option></option>
+                                                                        @foreach ($cylinders as $cylinder)
+                                                                            <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                        @endforeach
+                                                                    </select> 
+                                                                </li>
+                                                                <li>
+                                                                    <label for="">SO No:</label>
+                                                                    <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                        <option></option>
+                                                                        @foreach ($cylinders as $cylinder)
+                                                                            <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                        @endforeach
+                                                                    </select> 
+                                                                </li>
+                                                                <li>
+                                                                    <label for="">SO No:</label>
+                                                                    <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                        <option></option>
+                                                                        @foreach ($cylinders as $cylinder)
+                                                                            <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                        @endforeach
+                                                                    </select> 
+                                                                </li>
+                                                                                                                                <li>
+                                                                    <label for="">SO No:</label>
+                                                                    <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                        <option></option>
+                                                                        @foreach ($cylinders as $cylinder)
+                                                                            <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                        @endforeach
+                                                                    </select> 
+                                                                </li>
+                                                                <li>
+                                                                <i class="fa-solid fa-trash"></i>
+
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="bsj">
+                                                            <ul>
+                                                                <li>
+                                                                    <label for="">SO No:</label>
+                                                                    <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                        <option></option>
+                                                                        @foreach ($cylinders as $cylinder)
+                                                                            <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                        @endforeach
+                                                                    </select> 
+                                                                </li>
+                                                                <li>
+                                                                    <label for="">SO No:</label>
+                                                                    <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                        <option></option>
+                                                                        @foreach ($cylinders as $cylinder)
+                                                                            <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                        @endforeach
+                                                                    </select> 
+                                                                </li>
+                                                                <li>
+                                                                    <label for="">SO No:</label>
+                                                                    <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                        <option></option>
+                                                                        @foreach ($cylinders as $cylinder)
+                                                                            <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                        @endforeach
+                                                                    </select> 
+                                                                </li>
+                                                                <li>
+                                                                    <label for="">SO No:</label>
+                                                                    <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                        <option></option>
+                                                                        @foreach ($cylinders as $cylinder)
+                                                                            <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                        @endforeach
+                                                                    </select> 
+                                                                </li>
+                                                                <li>
+                                                                    <label for="">SO No:</label>
+                                                                    <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                        <option></option>
+                                                                        @foreach ($cylinders as $cylinder)
+                                                                            <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                        @endforeach
+                                                                    </select> 
+                                                                </li>
+                                                                <li>
+                                                                    <label for="">SO No:</label>
+                                                                    <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                        <option></option>
+                                                                        @foreach ($cylinders as $cylinder)
+                                                                            <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                        @endforeach
+                                                                    </select> 
+                                                                </li>
+                                                                <li>
+                                                                    <label for="">SO No:</label>
+                                                                    <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                        <option></option>
+                                                                        @foreach ($cylinders as $cylinder)
+                                                                            <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                        @endforeach
+                                                                    </select> 
+                                                                </li>
+                                                                                                                                <li>
+                                                                    <label for="">SO No:</label>
+                                                                    <select class="form-control requiredField" name="cylinder_id" id="cylinders_id" onchange="getCylinderDetail(this.value)">
+                                                                        <option></option>
+                                                                        @foreach ($cylinders as $cylinder)
+                                                                            <option value="{{ $cylinder->id }}">{{ $cylinder->cylinder_no }}</option>
+                                                                        @endforeach
+                                                                    </select> 
+                                                                </li>
+                                                                <li>
+                                                                   <i class="fa-solid fa-trash"></i>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                        <div>&nbsp;</div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            {{ Form::submit('Submit', ['class' => 'btn btn-success']) }}
+                            <button type="reset" id="reset" class="btn btn-danger">Clear Form</button>
+
+                            <?php
+                            //echo Form::submit('Click Me!');
+                            ?>
+                        </div>
+                        <?php
+                        echo Form::close();
+                        ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var so_id = '';
+        var sale_order_details='';
+        var sale_order_data_details='';
+        function getCylinderDetail(cylinder_id){
+            $('#up_across').val('');
+            $('#up_around').val('');
+            $('#cylinder_width').val('');
+            $('#cylinder_length').val('');
+            $('#cylinder_qty').val('');
+            $('#print_area').val('');
+
+function getCylinderDetail(cylinder_id) {
+    $('#up_across').val('');
+    $('#up_around').val('');
+    $('#cylinder_width').val('');
+    $('#cylinder_length').val('');
+    $('#cylinder_qty').val('');
+    $('#print_area').val('');
+
+    $.ajax({
+        type: "get",
+        url: "{{ route('cylinder.getCylinderDetail') }}",
+        data: {
+            cylinder_id: cylinder_id
+        },
+        dataType: "json",
+        success: function(response) {
+            $('#up_across').val(response.ups_across);
+            $('#up_around').val(response.ups_around);
+            $('#cylinder_width').val(response.unit_size_height);
+            $('#cylinder_length').val(response.unit_size_length);
+            $('#cylinder_qty').val(response.cylinder_qty);
+            $('#print_area').val(response.ups_across * response.unit_size_length);
+        }
+    });
+}
+
+function loadSaleOrderDetail(saleorder_id) {
+    so_id = saleorder_id
+    $.ajax({
+        type: "get",
+        url: "{{ route('job-card.getSalerOrderDetail') }}",
+        data: {
+            saleorder_id: so_id
+        },
+        dataType: "json",
+        success: function(response) {
+            sale_order_details = response.saleorder;
+            let items = response.items;
+            let options = '<option>Select Item</option>';
+            items.forEach(item => {
+                options += `<option value="${item.item_id}">${item.sub_ic}</option>`
+            });
+            $('#item_id').html(options);
+            $('#buyers_name').val(sale_order_details.customerName);
+            $('#buyers_id').val(sale_order_details.buyers_id);
+            console.log(options);
+        }
+    });
+}
+
+function getItemCylinder(item_id) {
+    $.ajax({
+        type: "get",
+        url: "{{ route('job-card.getItemCylinder') }}",
+        data: {
+            item_id: item_id,
+            saleorder_id: so_id
+        },
+        dataType: "json",
+        success: function(response) {
+            console.log(response);
+            sale_order_data_details = response.sale_order_data;
+            $('#finish_good_qty').val(sale_order_data_details.qty);
+            let items = response.cylinders;
+            let options = '<option>Select Cylinder</option>';
+            items.forEach(item => {
+                options += `<option value="${item.id}">${item.cylinder_no}</option>`
+            });
+            $('#cylinders_id').html(options);
+            let recipes = response.recipes;
+            let options2 = '<option>Select Recipe</option>';
+            recipes.forEach(recipe => {
+                options2 += `<option value="${recipe.id}">${recipe.description}</option>`
+            });
+            $('#recipe_id').html(options2);
+            console.log(options2);
+        }
+    });
+}
+
+function getRecipeDetail(recipe_id) {
+    $.ajax({
+        type: "get",
+        url: "{{ route('job-card.getRecipeDetail') }}",
+        data: {
+            recipe_id: recipe_id
+        },
+        success: function(response) {
+            console.log(response);
+            $('#AppnedHtml').append(response);
+        }
+    });
+}
+var Counter = 2;
+
+function AddMoreDetails() {
+    $('#AppnedHtml').append('<tr id="RemoveRows' + Counter + '" class="AutoNo">' +
+        '<td class="AutoCounter">' +
+        '<select class="form-control select2" name="raw_item_id[]" id="item_id' + Counter +
+        '" onchange="selectSubItem(this.value,' + Counter + ')"><option>Select Item</option>' +
+        '@foreach (CommonHelper::get_all_subitem(2,1) as $key => $value)' +
+        '<option value="{{ $value->id }}" data-uom="{{ optional($value->uomData)->uom_name }}" >' +
+        '{{ $value->sub_ic }}' +
+        '</option>' +
+        '@endforeach' +
+        '</select>' +
+        '</td>' +
+        '<td class="AutoCounter">' +
+        '<select class="form-control select2" name="stage_id[]" id="stage_id' + Counter +
+        '"><option>Select Item</option>' +
+        '@foreach ($stages as $stage)' +
+        '<option value="{{ $stage->id }}" data-uom="{{ $stage->name }}" >' +
+        '{{ $stage->name }}' +
+        '</option>' +
+        '@endforeach' +
+        '</select>' +
+        '</td>' +
+        '<td>' +
+        '<input readonly type="text" class="form-control" name="uom_id[]" id="uom_id' + Counter + '" >' +
+        '</td>' +
+        '<td>' +
+        '<input type="text" class="form-control" name="density[]" id="density' + Counter +
+        '" placeholder="density" value="">' +
+        '</td>' +
+        '<td>' +
+        //'<input type="hidden" name="density" id="density' + Counter + '" value="">'+
+        '<input type="text" class="form-control" onkeyup="gsmCalculate(' + Counter +
+        ')" name="micron[]" id="micron' + Counter + '" placeholder="micron" min="1" value="">' +
+        '</td>' +
+        '<td>' +
+        '<input type="text" class="form-control gsm" readonly name="gsm[]" id="gsm' + Counter +
+        '" placeholder="gms" min="1" value="">' +
+        '</td>' +
+        '<td>' +
+        '<input type="text" class="form-control requiredField ActualQty" name="actual_qty[]" id="actual_qty' +
+        Counter + '" placeholder="ACTUAL QTY" min="1" value="">' +
+        '</td>' +
+        '<td class="text-center">' +
+        '<button type="button" class="btn btn-sm btn-danger" id="BtnRemove' + Counter +
+        '" onclick="RemoveSection(' + Counter + ')"> - </button>' +
+        '</td>' +
+        '</tr>');
+    Counter++;
+    $('.select2').select2();
+
+}
+
+function selectSubItem(id, count) {
+    let uri = "{{ url('/') }}" + "/repository/itemDetailById";
+    let sub_item_id = id;
+    $.ajax({
+        type: "get",
+        url: uri,
+        data: {
+            id: sub_item_id
+        },
+        dataType: "json",
+        success: function(response) {
+            $('#width' + count).val(response.density);
+            $('#micron' + count).val(response.micron);
+            $('#density' + count).val(response.density);
+            let gsm = parseFloat(response.micron) * parseFloat(response.density);
+            $('#gsm' + count).val(gsm);
+            gsmCalculate(count);
+        }
+    });
+    
+}
+
+function gsmCalculate(test) {
+    let total_gsm = 0;
+    //let gsm_percentage = 0;
+    let actual_qty = 0;
+    $(".gsm").each(function(index) {
+        total_gsm += parseFloat($(this).val());
+    });
+    $(".gsm").each(function(index) {
+        let id = index + 1;
+        let micron = $('#micron'+id).val();
+        let density = $('#density' + id).val();
+        let gsm = parseFloat(micron) * parseFloat(density);
+        $('#gsm' + id).val(gsm);
+        let finish_product = $('#finish_good_qty').val();
+        let gsm_percentage = (parseFloat(gsm) / parseFloat(total_gsm)) * 100;
+        actual_qty = (parseFloat(gsm_percentage) / 100) * parseFloat(finish_product);
+        $('#actual_qty' + id).val(parseFloat(actual_qty).toFixed(2));
+    });
+
+}
+$(document).ready(function() {
+    $(".btn-success").click(function(e) {
+        var category = new Array();
+        var val;
+        //$("input[name='chartofaccountSection[]']").each(function(){
+        category.push($(this).val());
+        //});
+        var _token = $("input[name='_token']").val();
+        for (val of category) {
+
+            jqueryValidationCustom();
+            if (validate == 0) {
+                //return false;
+            } else {
+                return false;
+            }
+        }
+    });
+});
+
+$('body').on('change', 'select[name^="stage_id"]', function() {
+    var a = document.querySelectorAll('select[name="stage_id[]"]');
+
+    for (let index = 0; index < a.length; index++) {
+        options = a[index].options;
+
+        for (let index1 = 0; index1 < options.length; index1++) {
+            options[index1].disabled = false;
+
+        }
+    }
+
+    for (let index = 0; index < a.length; index++) {
+        let data = a[index].value;
+
+        for (let index1 = 0; index1 < a.length; index1++) {
+            if (index == index1) {
+
+            } else {
+                let options = a[index1].querySelectorAll('option[value="' + data + '"]');
+
+                for (let i = 0; i < options.length; i++) {
+                    options[i].disabled = true;
+                }
+            }
+        }
+    }
+});
+</script>
+
+
+@endsection
