@@ -195,6 +195,11 @@ export default function Home() {
       status:"success",
       description:"Updated successfully"
     });
+    setData({
+      name: "",
+      email: "",
+      image: "",
+    });
     setCustomersData(update);
     dispatch(customerData(update));
     onClose();
