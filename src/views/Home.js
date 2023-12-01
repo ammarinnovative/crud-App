@@ -12,7 +12,7 @@ import Logo from "../assets/images/logo.png";
 import customer from "../assets/images/customer.png";
 import sign from "../assets/images/Sign.png";
 import { IoMdAdd } from "@react-icons/all-files/io/IoMdAdd";
-import { RiArrowUpSLine } from "react-icons/ri";
+import { RiArrowUpSLine, RiTreasureMapFill } from "react-icons/ri";
 import { Checkmark } from "react-checkmark";
 import { FaCaretDown } from "react-icons/fa";
 import { useToast } from "@chakra-ui/react"; 
@@ -117,12 +117,26 @@ export default function Home() {
       email: "",
       image: "",
     });
+    toast({
+      position:"bottom-left",
+      isClosable:true,
+      duration:5000,
+      status:"success",
+      description:"Created successfully"
+    });
     setLoadings(false);
     setImage("");
   };
   const deleteCustomer = (id) => {
     const filter = customersData.filter((item) => item.id != id);
     setCustomersData(filter);
+    toast({
+      position:"bottom-left",
+      isClosable:true,
+      duration:5000,
+      status:"success",
+      description:"Deleted successfully"
+    });
     dispatch(customerData(filter));
   };
   const change = () => {
@@ -174,7 +188,13 @@ export default function Home() {
         return item;
       }
     });
-
+    toast({
+      position:"bottom-left",
+      isClosable:true,
+      duration:5000,
+      status:"success",
+      description:"Updated successfully"
+    });
     setCustomersData(update);
     dispatch(customerData(update));
     onClose();
